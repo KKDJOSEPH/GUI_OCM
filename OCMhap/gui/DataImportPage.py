@@ -1,4 +1,5 @@
 import tkinter as tk
+
 import pkg_resources
 
 
@@ -30,13 +31,9 @@ class DataImportPage(object):
         self.analysisBt.pack(expand=True, anchor=tk.CENTER)
         self.analysisBt.bind("<Button-1>", self.import_from_file)
 
-        self.dataBt = tk.Button(self.frame, text="Import Manually", height=3, width=18)
+        self.dataBt = tk.Button(self.frame, text="Export To File", height=3, width=18)
         self.dataBt.pack(expand=True, anchor=tk.CENTER)
-        self.dataBt.bind("<Button-1>", self.import_manually)
-
-        self.aboutBt = tk.Button(self.frame, text="View Data", height=3, width=18)
-        self.aboutBt.pack(expand=True, anchor=tk.CENTER)
-        self.aboutBt.bind("<Button-1>", self.view_data)
+        self.dataBt.bind("<Button-1>", self.export_to_file)
 
         self.aboutBt = tk.Button(self.frame, text="Back", height=3, width=18)
         self.aboutBt.pack(expand=True, anchor=tk.CENTER)
@@ -53,13 +50,10 @@ class DataImportPage(object):
         self.frame.destroy()
 
     def import_from_file(self, event):
-        pass
+        self.controller.import_from_file(event)
 
-    def import_manually(self, event):
-        pass
-
-    def view_data(self, event):
-        pass
+    def export_to_file(self, event):
+        self.controller.export_to_file(event)
 
     def return_home(self, event):
         self.frame.destroy()

@@ -1,6 +1,8 @@
 import sys
 import webbrowser
+from tkinter import filedialog
 
+from OCMhap.Data import DataObject
 from OCMhap.gui.DataImportPage import DataImportPage
 from OCMhap.gui.MainPage import MainPage
 
@@ -10,11 +12,12 @@ class MainController(object):
     A GUIController represents a controller for the GUI of the
     OCM Advisory Health Analytics Platform.
     """
-    def __init__(self):
+    def __init__(self, data):
         """
         Initialize the GUIController by initializing its component frames.
         """
         self.page = MainPage(self)
+        self.data = data
 
     def analysis(self, event):
         """
@@ -27,7 +30,7 @@ class MainController(object):
         Serve the data import interface.
         """
         self.page.stop()
-        controller = DataImportController(self)
+        controller = DataImportController(self, self.data)
 
     def about(self, event):
         """
@@ -51,12 +54,13 @@ class DataImportController(object):
     """
     A DataImportController is a controller for the data import GUI.
     """
-    def __init__(self, controller):
+    def __init__(self, controller, data):
         """
         Initialize the data import page.
         :param controller: the parent controller of this object
         """
         self.controller = controller
+        self.data = data
 
         self.page = DataImportPage(self)
         self.page.run()
@@ -65,13 +69,15 @@ class DataImportController(object):
         """
         Import additional data from a file
         """
-        pass
+        file = filedialog.askopenfile(filetypes=[('csv', '*.csv'), ('tsv', '*.tsv')])
+        self.data.import_from_file(file)
 
-    def import_manually(self, event):
+    def export_to_file(self, event):
         """
         Import data by entering into corresponding text boxes
         """
-        pass
+        file = filedialog.asksaveasfile(defaultextension='csv')
+        self.data.export_to_file(file)
 
     def view_data(self, event):
         """
@@ -92,7 +98,8 @@ def main():
 
     Also serves as a console-entry point via command OCMhap.
     """
-    controller = MainController()
+    data = DataObject()
+    controller = MainController(data)
     controller.gogogo()
     sys.exit(0)
 
