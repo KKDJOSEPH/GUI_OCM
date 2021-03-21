@@ -50,11 +50,14 @@ class DataImportPage(object):
         self.frame.destroy()
 
     def import_from_file(self, event):
+        """Import data from a file"""
         self.controller.import_from_file(event)
 
     def export_to_file(self, event):
+        """Export data to a file"""
         self.controller.export_to_file(event)
 
     def return_home(self, event):
+        """Return to the home page"""
         self.frame.destroy()
         self.controller.return_home(event)

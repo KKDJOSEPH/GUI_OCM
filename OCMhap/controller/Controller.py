@@ -67,23 +67,17 @@ class DataImportController(object):
 
     def import_from_file(self, event):
         """
-        Import additional data from a file
+        Import tabular data from a file
         """
         file = filedialog.askopenfile(filetypes=[('csv', '*.csv'), ('tsv', '*.tsv')])
         self.data.import_from_file(file)
 
     def export_to_file(self, event):
         """
-        Import data by entering into corresponding text boxes
+        Export the currently in use data to a file
         """
         file = filedialog.asksaveasfile(defaultextension='csv')
         self.data.export_to_file(file)
-
-    def view_data(self, event):
-        """
-        View the data currently in use by the application
-        """
-        pass
 
     def return_home(self, event):
         """
