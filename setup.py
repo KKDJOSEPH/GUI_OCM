@@ -12,7 +12,8 @@ version = "0.1.0"
 # "Development Status :: 5 - Production/Stable"
 release_status = "Development Status :: 3 - Alpha"
 dependencies = [
-    "tkinter"
+    "tkinter",
+    "pandas"
 ]
 extras = {
 
