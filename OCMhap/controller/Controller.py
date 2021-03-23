@@ -70,13 +70,17 @@ class DataImportController(object):
         Import tabular data from a file
         """
         file = filedialog.askopenfile(filetypes=[('csv', '*.csv'), ('tsv', '*.tsv')])
+        if file is None:
+            return
         self.data.import_from_file(file)
 
     def export_to_file(self, event):
         """
         Export the currently in use data to a file
         """
-        file = filedialog.asksaveasfile(defaultextension='csv')
+        file = filedialog.asksaveasfile(defaultextension='.csv')
+        if file is None:
+            return 
         self.data.export_to_file(file)
 
     def return_home(self, event):
