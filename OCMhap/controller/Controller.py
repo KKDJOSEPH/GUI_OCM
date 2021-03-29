@@ -1,10 +1,12 @@
 import sys
 import webbrowser
+import tkinter.messagebox
 from tkinter import filedialog
 
 from OCMhap.Data import DataObject
 from OCMhap.gui.DataImportPage import DataImportPage
 from OCMhap.gui.MainPage import MainPage
+from OCMhap.Visualization.AnalysisWindow import AnalysisWindow
 
 
 class MainController(object):
@@ -24,6 +26,7 @@ class MainController(object):
         Serve the analysis import interface.
         """
         self.page.stop()
+        controller = AnalysisWindowController(self, self.data)
 
     def data_import(self, event):
         """
@@ -38,6 +41,10 @@ class MainController(object):
         """
         webbrowser.open("https://ocmadvisory.com/", new=0)
 
+    def help(self, event):
+        tkinter.messagebox.showinfo(message='For app related questions or problems please email Haoyang Ding at \n'
+                                        'ding.haoya@northeastern.edu')
+
     def return_home(self, event):
         """
         Return to the main page from a separate window
@@ -49,6 +56,24 @@ class MainController(object):
         """Start the application"""
         self.page.run()
 
+
+class AnalysisWindowController(object):
+
+    def __init__(self, controller, data):
+        """
+        Initialize the GUIController by initializing its component frames.
+        """
+
+        self.controller = controller
+        self.data = data
+        self.page = AnalysisWindow(self)
+        self.page.run()
+
+    def return_home(self, event):
+        """
+        Return to the main page
+        """
+        self.controller.return_home(event)
 
 class DataImportController(object):
     """
@@ -100,7 +125,6 @@ def main():
     controller = MainController(data)
     controller.gogogo()
     sys.exit(0)
-
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,4 @@
+from tkinter import *
 import tkinter as tk
 import pkg_resources
 
@@ -7,6 +8,9 @@ class MainPage(object):
     A MainPage represents the main page for the OCM Advisory
     Health Analytics Platform.
     """
+    def help(self, event):
+        self.controller.help(event)
+
     def __init__(self, controller):
         """
         Initialize the MainPage.
@@ -35,13 +39,14 @@ class MainPage(object):
         self.analysisBt.pack(expand=True, anchor=tk.CENTER)
         self.analysisBt.bind("<Button-1>", self.analysis)
 
-        self.dataBt = tk.Button(self.frame, text="Data Import", height=3, width=18)
-        self.dataBt.pack(expand=True, anchor=tk.CENTER)
-        self.dataBt.bind("<Button-1>", self.data_import)
-
-        self.aboutBt = tk.Button(self.frame, text="About", height=3, width=18)
+        self.aboutBt = tk.Button(self.frame, text="OCM Website", height=3, width=18)
         self.aboutBt.pack(expand=True, anchor=tk.CENTER)
         self.aboutBt.bind("<Button-1>", self.about)
+
+        # Add Help Button Feature
+        self.helpBt = tk.Button(self.frame, text="Help", height=1, width=6)
+        self.helpBt.place(relx=.85, rely=.01)
+        self.helpBt.bind("<Button-1>", self.help)
 
     def run(self):
         """Display this page"""
@@ -62,3 +67,6 @@ class MainPage(object):
     def about(self, event):
         """The about button was clicked"""
         self.controller.about(event)
+
+
+
