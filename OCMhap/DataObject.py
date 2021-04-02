@@ -18,14 +18,6 @@ class DataObject(object):
         self.data = pd.read_csv(file)
         self.attributes = self.data.columns
 
-    def export_to_file(self, file):
-        """
-        Export the tabular data in this object to a file in csv format
-        :param file: a writable file handle
-        """
-        self.data.to_csv(file)
-        self.attributes = self.data.columns
-
     def copy(self):
         """
         Create a copy of this object
