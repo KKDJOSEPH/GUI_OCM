@@ -1,9 +1,8 @@
-from tkinter import *
 import tkinter as tk
 import pkg_resources
 
 
-class MainPage(object):
+class Main(object):
     """
     A MainPage represents the main page for the OCM Advisory
     Health Analytics Platform.
@@ -56,17 +55,13 @@ class MainPage(object):
         """Disable this page"""
         self.frame.destroy()
 
-    def analysis(self, event):
+    def analysis(self):
         """The analysis button was clicked"""
-        self.controller.analysis(event)
+        self.controller.analysis()
 
-    def data_import(self, event):
-        """The data import button was clicked"""
-        self.controller.data_import(event)
-
-    def about(self, event):
+    def about(self):
         """The about button was clicked"""
-        self.controller.about(event)
+        self.controller.about()
 
 
 

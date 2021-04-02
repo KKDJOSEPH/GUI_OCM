@@ -11,20 +11,20 @@ from matplotlib.figure import Figure
 import pandas as pd
 
 
-class Analysis(object):
+class AnalysisFrame(object):
     window_width = 900
     window_height = 600
     canvas_width = 660
     canvas_height = 500
 
-    def __init__(self, controller):
+    def __init__(self, controller, data):
         self.controller = controller
+        self.data
         self.width = self.window_width
         self.height = self.window_height
         self.frame = tk.Tk()
         self.frame.title("OCM Advisory Health Analytics Platform")
         self.frame.geometry("900x600")
-
 
         self.scatterBt = tk.Button(self.frame, text="Scatter Plot", height=3, width=18)
         # self.scatterBt.place(x=10, y=10)
@@ -69,30 +69,6 @@ class Analysis(object):
         self.table = pt = Table(f, dataframe=df,
                                 showtoolbar=True, showstatusbar=True)
         pt.show()
-
-
-    def scatterPlot(self, file='/OCMhap/resources/data/data.csv', variable1='Suicide', variable2='Asthma'):
-        fig = Figure(figsize=(6, 6),
-                     dpi=100)
-
-        # list of squares
-        y = [i ** 2 for i in range(101)]
-
-        # adding the subplot
-        plot1 = fig.add_subplot(111)
-
-        # plotting the graph
-        plot1.plot(y)
-
-
-        # creating the Tkinter canvas
-        # containing the Matplotlib figure
-        canvas = FigureCanvasTkAgg(fig,
-                                   master=self.frame)
-        canvas.draw()
-        canvas.get_tk_widget().pack()
-
-
 
     def return_home(self, event):
         """Return to the home page"""
