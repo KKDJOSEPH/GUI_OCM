@@ -6,7 +6,7 @@ from tkinter import filedialog
 from OCMhap.Data import DataObject
 from OCMhap.gui.DataImportPage import DataImportPage
 from OCMhap.gui.MainPage import MainPage
-from OCMhap.Visualization.AnalysisWindow import AnalysisWindow
+from OCMhap.gui.Analysis import Analysis
 
 
 class MainController(object):
@@ -27,7 +27,7 @@ class MainController(object):
         Serve the analysis import interface.
         """
         self.page.stop()
-        controller = AnalysisWindowController(self, self.data)
+        controller = AnalysisController(self, self.data)
 
     def data_import(self, event):
         """
@@ -58,7 +58,7 @@ class MainController(object):
         self.page.run()
 
 
-class AnalysisWindowController(object):
+class AnalysisController(object):
 
     def __init__(self, controller, data):
         """
@@ -67,7 +67,7 @@ class AnalysisWindowController(object):
 
         self.controller = controller
         self.data = data
-        self.page = AnalysisWindow(self)
+        self.page = Analysis(self)
         self.page.run()
 
     def return_home(self, event):
