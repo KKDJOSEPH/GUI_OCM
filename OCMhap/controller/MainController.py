@@ -2,6 +2,8 @@ import sys
 import tkinter
 import webbrowser
 
+import pkg_resources
+
 from OCMhap.DataObject import DataObject
 from OCMhap.controller.AnalysisController import AnalysisController
 from OCMhap.gui.MainFrame import MainFrame
@@ -19,15 +21,30 @@ class MainController(object):
         :param root: the root tk interpreter.
         :param data:
         """
-        self.page = MainFrame(root, self)
+        self.root = root
+        self.root.title("OCM Advisory Health Analytics Platform")
+        self.root.iconphoto(True, tkinter.PhotoImage(
+            file=pkg_resources.resource_filename(__name__, "../resources/images/ocm_icon.png")
+        ))
+        self.frame = MainFrame(root, self)
         self.data = data
+
+        self.analysis_controller = AnalysisController(self.root, self, self.data)
+
+    def display(self):
+        """Display the main frame"""
+        self.frame.display()
+
+    def hide(self):
+        """Hide the main frame"""
+        self.frame.hide()
 
     def analysis(self):
         """
         Serve the analysis import interface.
         """
-        self.page.stop()
-        AnalysisController(self, self.data)
+        self.hide()
+        self.analysis_controller.display()
 
     def about(self):
         """
@@ -39,19 +56,19 @@ class MainController(object):
         """
         Provide help information regarding the application
         """
-        self.page.dialog_box('For app related questions or problems please email Haoyang Ding at \n'
-                             'ding.haoya@northeastern.edu')
+        self.frame.dialog_box('For app related questions or problems please email Haoyang Ding at \n'
+                              'ding.haoya@northeastern.edu')
 
     def return_home(self):
         """
         Return to the main page from a separate window
         """
-        self.page = MainFrame(self)
-        self.page.run()
+        self.display()
 
     def gogogo(self):
         """Start the application"""
-        self.page.run()
+        self.display()
+        self.root.mainloop()
 
 
 def main():

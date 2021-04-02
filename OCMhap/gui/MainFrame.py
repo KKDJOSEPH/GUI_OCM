@@ -1,4 +1,4 @@
-import tkinter as tk
+import tkinter
 import pkg_resources
 
 from OCMhap.gui.AbstractOCMFrame import AbstractOCMFrame
@@ -24,28 +24,26 @@ class MainFrame(AbstractOCMFrame):
 
         self.controller = controller
 
-        self.photo = tk.PhotoImage(
+        self.photo = tkinter.PhotoImage(
             file=pkg_resources.resource_filename(__name__, "../resources/images/ocm_logo.png")
         )
-        self.imgLabel = tk.Label(self.frame, image=self.photo)
-        self.imgLabel.pack(expand=True, anchor=tk.CENTER)
+        self.imgLabel = tkinter.Label(self, image=self.photo)
+        self.imgLabel.pack(expand=True, anchor=tkinter.CENTER)
 
-        self.analysisBt = tk.Button(self.frame, text="Analysis",
-                                    height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
-                                    command=self.analysis)
-        self.analysisBt.pack(expand=True, anchor=tk.CENTER)
+        self.analysisBt = tkinter.Button(self, text="Analysis",
+                                         height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                         command=self.analysis)
+        self.analysisBt.pack(expand=True, anchor=tkinter.CENTER)
 
-        self.aboutBt = tk.Button(self.frame, text="OCM Website",
-                                 height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
-                                 command=self.about)
-        self.aboutBt.pack(expand=True, anchor=tk.CENTER)
+        self.aboutBt = tkinter.Button(self, text="OCM Website",
+                                      height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                      command=self.about)
+        self.aboutBt.pack(expand=True, anchor=tkinter.CENTER)
 
-        self.helpBt = tk.Button(self.frame, text="Help",
-                                height=round(self.BUTTON_HEIGHT/3)+1, width=round(self.BUTTON_WIDTH/3),
-                                command=self.help)
-        self.helpBt.pack(expand=True, anchor=tk.CENTER, pady=10)
-
-        self.root.mainloop()
+        self.helpBt = tkinter.Button(self, text="Help",
+                                     height=round(self.BUTTON_HEIGHT/3)+1, width=round(self.BUTTON_WIDTH/3),
+                                     command=self.help)
+        self.helpBt.pack(expand=True, anchor=tkinter.CENTER, pady=10)
 
     def help(self):
         """Provide the help dialog"""

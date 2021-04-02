@@ -4,16 +4,29 @@ from OCMhap.gui.AnalysisFrame import AnalysisFrame
 
 
 class AnalysisController(object):
+    """
+    An AnalysisController is a controller for the analysis page in
+    """
 
-    def __init__(self, controller, data):
+    def __init__(self, root, controller, data):
         """
-        Initialize the GUIController by initializing its component frames.
+        Initialize the AnalysisController.
+        :param root:
+        :param controller:
+        :param data:
         """
-
+        self.root = root
         self.controller = controller
         self.data = data
-        self.page = AnalysisFrame(self, data=data)
-        self.page.run()
+        self.frame = AnalysisFrame(root, self, data=data)
+
+    def display(self):
+        """Display the main frame"""
+        self.frame.display()
+
+    def hide(self):
+        """Hide the main frame"""
+        self.frame.hide()
 
     def import_data(self, data):
         """
@@ -24,11 +37,11 @@ class AnalysisController(object):
         if file is None:
             return
         data.import_from_file(file)
-        self.page.refresh()
+        self.frame.refresh()
 
     def return_home(self):
         """
         Return to the main page
         """
-        self.page.stop()
+        self.hide()
         self.controller.return_home()

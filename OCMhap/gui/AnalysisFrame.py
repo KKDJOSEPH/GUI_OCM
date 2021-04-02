@@ -19,34 +19,34 @@ class AnalysisFrame(AbstractOCMFrame):
     canvas_width = 660
     canvas_height = 500
 
-    def __init__(self, controller, data):
+    def __init__(self, root, controller, data):
         """
         Initialize an AnalysisFrame.
         :param controller: the controller controlling this frame
         :param data: the data object
         """
-        super().__init__()
+        super().__init__(root)
 
         self.controller = controller
         self.data = data
 
-        self.frame.geometry("{}x{}".format(self.WIDTH, self.HEIGHT))
-
-        self.dataBt = tk.Button(self.frame, text="Import Data",
+        self.dataBt = tk.Button(self, text="Import Data",
                                 height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
                                 command=self.import_data)
         self.dataBt.place(x=10, y=80)
 
-        self.backBt = tk.Button(self.frame, text="Back",
+        self.backBt = tk.Button(self, text="Back",
                                 height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
                                 command=self.return_home)
         self.backBt.place(x=10, y=550)
 
-        self.canvas = tk.Canvas(self.frame, bg="gray89",
+        self.canvas = tk.Canvas(self, bg="gray89",
                                 height=self.canvas_height, width=self.canvas_width)
         self.canvas.place(x=200, y=10)
         self.canvas_frame = Frame(self.canvas)
         self.canvas_frame.pack(fill=BOTH, expand=1)
+
+        self.pack(expand=True, anchor=tk.CENTER)
 
     def import_data(self):
         """Import data into the model"""

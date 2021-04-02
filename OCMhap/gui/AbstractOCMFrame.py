@@ -1,12 +1,8 @@
-from abc import ABC
-
 import tkinter.messagebox
 import tkinter as tk
 
-import pkg_resources
 
-
-class AbstractOCMFrame(ABC):
+class AbstractOCMFrame(tk.Frame):
     """
     An AbstractOCMFrame is a Frame in the OCM advisory health analytics
     platform.
@@ -25,22 +21,15 @@ class AbstractOCMFrame(ABC):
 
         :param root: the root tk interpreter
         """
-        self.root = root
-        self.root.title("OCM Advisory Health Analytics Platform")
-        self.root.geometry("{}x{}".format(self.DEFAULT_HEIGHT, self.DEFAULT_WIDTH))
-        self.root.iconphoto(True, tk.PhotoImage(
-            file=pkg_resources.resource_filename(__name__, "../resources/images/ocm_icon.png")
-        ))
+        super().__init__(root)
 
-        self.frame = tk.Frame(self.root)
+    def display(self):
+        """Display this frame"""
+        self.pack(expand=True, anchor=tk.CENTER)
 
-    def run(self):
-        """Display this page"""
-        self.root.mainloop()
-
-    def stop(self):
-        """Disable this page"""
-        self.root.destroy()
+    def hide(self):
+        """Hide this frame"""
+        self.pack_forget()
 
     def dialog_box(self, message):
         """Display the provided message in a dialog box"""
