@@ -1,32 +1,28 @@
 import tkinter as tk
 import pkg_resources
 
+from OCMhap.gui.AbstractOCMFrame import AbstractOCMFrame
 
-class Main(object):
+
+class MainFrame(AbstractOCMFrame):
     """
     A MainPage represents the main page for the OCM Advisory
     Health Analytics Platform.
     """
-    def help(self, event):
-        self.controller.help(event)
 
-    def __init__(self, controller):
+    def __init__(self, root, controller):
         """
         Initialize the MainPage.
 
         Tha MainPage includes the OCM Advisory logo, as well as buttons
         for data import, analysis, and about.
 
+        :param root: the root tk interpreter
         :param controller: the controller handling events on this page
         """
-        self.controller = controller
+        super().__init__(root)
 
-        self.frame = tk.Tk()
-        self.frame.title("OCM Advisory Health Analytics Platform")
-        self.frame.geometry("500x300")
-        self.frame.iconphoto(True, tk.PhotoImage(
-            file=pkg_resources.resource_filename(__name__, "../resources/images/ocm_icon.png")
-        ))
+        self.controller = controller
 
         self.photo = tk.PhotoImage(
             file=pkg_resources.resource_filename(__name__, "../resources/images/ocm_logo.png")
@@ -34,26 +30,26 @@ class Main(object):
         self.imgLabel = tk.Label(self.frame, image=self.photo)
         self.imgLabel.pack(expand=True, anchor=tk.CENTER)
 
-        self.analysisBt = tk.Button(self.frame, text="Analysis", height=3, width=18)
+        self.analysisBt = tk.Button(self.frame, text="Analysis",
+                                    height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                    command=self.analysis)
         self.analysisBt.pack(expand=True, anchor=tk.CENTER)
-        self.analysisBt.bind("<Button-1>", self.analysis)
 
-        self.aboutBt = tk.Button(self.frame, text="OCM Website", height=3, width=18)
+        self.aboutBt = tk.Button(self.frame, text="OCM Website",
+                                 height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                 command=self.about)
         self.aboutBt.pack(expand=True, anchor=tk.CENTER)
-        self.aboutBt.bind("<Button-1>", self.about)
 
-        # Add Help Button Feature
-        self.helpBt = tk.Button(self.frame, text="Help", height=1, width=6)
-        self.helpBt.place(relx=.85, rely=.01)
-        self.helpBt.bind("<Button-1>", self.help)
+        self.helpBt = tk.Button(self.frame, text="Help",
+                                height=round(self.BUTTON_HEIGHT/3)+1, width=round(self.BUTTON_WIDTH/3),
+                                command=self.help)
+        self.helpBt.pack(expand=True, anchor=tk.CENTER, pady=10)
 
-    def run(self):
-        """Display this page"""
-        self.frame.mainloop()
+        self.root.mainloop()
 
-    def stop(self):
-        """Disable this page"""
-        self.frame.destroy()
+    def help(self):
+        """Provide the help dialog"""
+        self.controller.help()
 
     def analysis(self):
         """The analysis button was clicked"""
