@@ -13,7 +13,9 @@ version = "0.1.0"
 release_status = "Development Status :: 3 - Alpha"
 dependencies = [
     "tkinter",
-    "pandas"
+    "pandas",
+    "matplotlib",
+    "pandastable"
 ]
 extras = {
 

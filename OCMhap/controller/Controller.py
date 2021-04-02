@@ -14,6 +14,7 @@ class MainController(object):
     A GUIController represents a controller for the GUI of the
     OCM Advisory Health Analytics Platform.
     """
+
     def __init__(self, data):
         """
         Initialize the GUIController by initializing its component frames.
@@ -43,7 +44,7 @@ class MainController(object):
 
     def help(self, event):
         tkinter.messagebox.showinfo(message='For app related questions or problems please email Haoyang Ding at \n'
-                                        'ding.haoya@northeastern.edu')
+                                            'ding.haoya@northeastern.edu')
 
     def return_home(self, event):
         """
@@ -75,10 +76,12 @@ class AnalysisWindowController(object):
         """
         self.controller.return_home(event)
 
+
 class DataImportController(object):
     """
     A DataImportController is a controller for the data import GUI.
     """
+
     def __init__(self, controller, data):
         """
         Initialize the data import page.
@@ -105,7 +108,7 @@ class DataImportController(object):
         """
         file = filedialog.asksaveasfile(defaultextension='.csv')
         if file is None:
-            return 
+            return
         self.data.export_to_file(file)
 
     def return_home(self, event):
@@ -125,6 +128,7 @@ def main():
     controller = MainController(data)
     controller.gogogo()
     sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
