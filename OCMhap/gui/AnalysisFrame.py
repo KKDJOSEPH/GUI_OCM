@@ -1,76 +1,63 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import filedialog
-from pandastable import Table, TableModel
-import pkg_resources
+from pandastable import Table
 import matplotlib
+
+from OCMhap.gui.AbstractOCMFrame import AbstractOCMFrame
+
 matplotlib.use('TkAgg')
-import numpy as np
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
-import pandas as pd
 
 
-class AnalysisFrame(object):
-    window_width = 900
-    window_height = 600
+class AnalysisFrame(AbstractOCMFrame):
+    """
+    An AnlysisFrame represents a frame for doing analysis in the OCM
+    advisory health analytics platform.
+    """
+    WIDTH = 900
+    HEIGHT = 600
+
     canvas_width = 660
     canvas_height = 500
 
     def __init__(self, controller, data):
+        """
+        Initialize an AnalysisFrame.
+        :param controller: the controller controlling this frame
+        :param data: the data object
+        """
+        super().__init__()
+
         self.controller = controller
-        self.data
-        self.width = self.window_width
-        self.height = self.window_height
-        self.frame = tk.Tk()
-        self.frame.title("OCM Advisory Health Analytics Platform")
-        self.frame.geometry("900x600")
+        self.data = data
 
-        self.scatterBt = tk.Button(self.frame, text="Scatter Plot", height=3, width=18)
-        # self.scatterBt.place(x=10, y=10)
-        self.scatterBt.place(relx=.01, rely=.01)
-        self.scatterBt.bind("<Button-1>", self.scatterPlot)
+        self.frame.geometry("{}x{}".format(self.WIDTH, self.HEIGHT))
 
-        self.dataBt = tk.Button(self.frame, text="Import Data", height=3, width=18,
-                                command=self.call_cancvas)
+        self.dataBt = tk.Button(self.frame, text="Import Data",
+                                height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                command=self.import_data)
         self.dataBt.place(x=10, y=80)
-        # self.dataBt.bind("<Button-1>", self.call_cancvas)
 
-        # self.mapBt = tk.Button(self.frame, text="Interactive Map", height=3, width=18.,
-        #                        command = print(self.data))
-        # self.mapBt.place(x=10, y=150)
-        # # self.aboutBt.bind("<Button-1>", self.about)
-
-        self.backBt = tk.Button(self.frame, text="Back", height=2, width=14)
+        self.backBt = tk.Button(self.frame, text="Back",
+                                height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                command=self.return_home)
         self.backBt.place(x=10, y=550)
-        self.backBt.bind("<Button-3>", self.return_home)
 
-    def run(self):
-        """Display this page"""
-        self.frame.mainloop()
+        self.canvas = tk.Canvas(self.frame, bg="gray89",
+                                height=self.canvas_height, width=self.canvas_width)
+        self.canvas.place(x=200, y=10)
+        self.canvas_frame = Frame(self.canvas)
+        self.canvas_frame.pack(fill=BOTH, expand=1)
 
-    def stop(self):
-        """Disable this page"""
-        self.frame.destroy()
+    def import_data(self):
+        """Import data into the model"""
+        self.controller.import_data(self.data)
 
-    def call_cancvas(self):
-        self.create_canvas(tk.Canvas(self.frame, bg="gray89", height=self.canvas_height, width=self.canvas_width))
+    def refresh(self):
+        """Refresh the contents displayed on this page"""
+        table = Table(self.canvas_frame, dataframe=self.data.data,
+                      showtoolbar=True, showstatusbar=True)
+        table.show()
 
-    def create_canvas(self, canvas):
-        canvas.place(x=200, y=10)
-
-        f = Frame(canvas)
-        f.pack(fill=BOTH, expand=1)
-        file = filedialog.askopenfile(filetypes=[('csv', '*.csv'), ('tsv', '*.tsv')])
-        if file is None:
-            return
-        df = pd.read_csv(file)
-        self.data = df
-        self.table = pt = Table(f, dataframe=df,
-                                showtoolbar=True, showstatusbar=True)
-        pt.show()
-
-    def return_home(self, event):
+    def return_home(self):
         """Return to the home page"""
-        self.frame.destroy()
-        self.controller.return_home(event)
+        self.controller.return_home()
