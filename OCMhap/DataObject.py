@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas
 
 
 class DataObject(object):
@@ -8,14 +8,14 @@ class DataObject(object):
     def __init__(self):
         """Initialize a DataObject"""
         self.attributes = list()
-        self.data = pd.DataFrame()
+        self.data = pandas.DataFrame()
 
     def import_from_file(self, file):
         """
         Import tabular data from a file
         :param file: a readable file handle
         """
-        self.data = pd.read_csv(file)
+        self.data = pandas.read_csv(file)
         self.attributes = self.data.columns
 
     def copy(self):

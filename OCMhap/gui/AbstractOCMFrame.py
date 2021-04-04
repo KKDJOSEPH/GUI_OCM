@@ -1,15 +1,12 @@
 import tkinter.messagebox
-import tkinter as tk
+import tkinter
 
 
-class AbstractOCMFrame(tk.Frame):
+class AbstractOCMFrame(tkinter.Frame):
     """
     An AbstractOCMFrame is a Frame in the OCM advisory health analytics
     platform.
     """
-
-    DEFAULT_HEIGHT = 500
-    DEFAULT_WIDTH = 300
 
     BUTTON_WIDTH = 18
     BUTTON_HEIGHT = 3
@@ -25,7 +22,8 @@ class AbstractOCMFrame(tk.Frame):
 
     def display(self):
         """Display this frame"""
-        self.pack(expand=True, anchor=tk.CENTER)
+        # self.pack(expand=True, anchor=tk.CENTER)
+        self.pack()
 
     def hide(self):
         """Hide this frame"""

@@ -1,12 +1,10 @@
 import sys
-import tkinter
 import webbrowser
-
-import pkg_resources
 
 from OCMhap.DataObject import DataObject
 from OCMhap.controller.AnalysisController import AnalysisController
 from OCMhap.gui.MainFrame import MainFrame
+from OCMhap.gui.RootFrame import RootFrame
 
 
 class MainController(object):
@@ -15,21 +13,18 @@ class MainController(object):
     OCM Advisory Health Analytics Platform.
     """
 
-    def __init__(self, root, data):
+    def __init__(self, data):
         """
         Initialize the GUIController by initializing its component frames.
-        :param root: the root tk interpreter.
         :param data:
         """
-        self.root = root
-        self.root.title("OCM Advisory Health Analytics Platform")
-        self.root.iconphoto(True, tkinter.PhotoImage(
-            file=pkg_resources.resource_filename(__name__, "../resources/images/ocm_icon.png")
-        ))
-        self.frame = MainFrame(root, self)
         self.data = data
 
+        self.root = RootFrame()
+
+        self.frame = MainFrame(self.root, self)
         self.analysis_controller = AnalysisController(self.root, self, self.data)
+        self.analysis_controller.hide()
 
     def display(self):
         """Display the main frame"""
@@ -77,9 +72,8 @@ def main():
 
     Also serves as a console-entry point via command OCMhap.
     """
-    root = tkinter.Tk()
     data = DataObject()
-    controller = MainController(root, data)
+    controller = MainController(data)
     controller.gogogo()
     sys.exit(0)
 

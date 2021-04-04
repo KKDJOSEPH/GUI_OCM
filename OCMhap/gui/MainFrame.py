@@ -45,6 +45,9 @@ class MainFrame(AbstractOCMFrame):
                                      command=self.help)
         self.helpBt.pack(expand=True, anchor=tkinter.CENTER, pady=10)
 
+        # self.pack(expand=True, anchor=tkinter.CENTER)
+        self.pack()
+
     def help(self):
         """Provide the help dialog"""
         self.controller.help()

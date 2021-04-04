@@ -15,7 +15,6 @@ class AnalysisController(object):
         :param controller:
         :param data:
         """
-        self.root = root
         self.controller = controller
         self.data = data
         self.frame = AnalysisFrame(root, self, data=data)
