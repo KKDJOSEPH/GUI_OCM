@@ -1,10 +1,7 @@
 import tkinter
 from pandastable import Table
-import matplotlib
 
 from OCMhap.gui.AbstractOCMFrame import AbstractOCMFrame
-
-matplotlib.use('TkAgg')
 
 
 class AnalysisFrame(AbstractOCMFrame):
@@ -12,11 +9,6 @@ class AnalysisFrame(AbstractOCMFrame):
     An AnlysisFrame represents a frame for doing analysis in the OCM
     advisory health analytics platform.
     """
-    WIDTH = 900
-    HEIGHT = 600
-
-    canvas_width = 660
-    canvas_height = 500
 
     def __init__(self, root, controller, data):
         """
@@ -29,23 +21,44 @@ class AnalysisFrame(AbstractOCMFrame):
         self.controller = controller
         self.data = data
 
-        self.dataBt = tkinter.Button(self, text="Import Data",
+        self.grid(sticky="NESW")
+
+        # The frame on which to place the pandas Table
+        self.table_frame = tkinter.Frame(self, relief=tkinter.RAISED, borderwidth=1)
+        self.table_frame.grid(column=1, row=1, columnspan=5, rowspan=5, sticky="NESW",
+                              padx=self.PADDING, pady=self.PADDING)
+
+        self.table = Table(self.table_frame, dataframe=self.data.data,
+                           showtoolbar=True, showstatusbar=True)
+        self.table.show()
+
+        # The frame on which to place the import data and back buttons
+        self.data_frame = tkinter.Frame(self)
+        self.data_frame.grid(column=0, row=0, columnspan=1, rowspan=5, sticky="NESW",
+                             padx=self.PADDING, pady=self.PADDING)
+
+        # The data import button
+        self.dataBt = tkinter.Button(self.data_frame, text="Import Data",
                                      height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
                                      command=self.import_data)
-        self.dataBt.pack(expand=True, anchor=tkinter.CENTER)
+        self.dataBt.grid(column=0, row=0, padx=self.PADDING, pady=self.PADDING)
 
-        self.backBt = tkinter.Button(self, text="Back",
+        # The back button
+        self.backBt = tkinter.Button(self.data_frame, text="Back",
                                      height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
                                      command=self.return_home)
-        self.backBt.pack(expand=True, anchor=tkinter.CENTER)
+        self.backBt.grid(column=0, row=1, padx=self.PADDING, pady=self.PADDING)
 
-        self.canvas = tkinter.Canvas(self, bg="gray89",
-                                     height=self.canvas_height, width=self.canvas_width)
-        self.canvas.pack(expand=True, anchor=tkinter.CENTER)
-        self.canvas_frame = tkinter.Frame(self.canvas)
-        self.canvas_frame.pack(fill=tkinter.BOTH, expand=1)
+        # The frame on which to place the animated map controls
+        self.map_frame = tkinter.Frame(self, relief=tkinter.RAISED, borderwidth=1,
+                                       padx=5, pady=5)
+        self.map_frame.grid(column=1, row=6, columnspan=5, rowspan=1, sticky="NESW",
+                            padx=self.PADDING, pady=self.PADDING)
 
-        self.pack(expand=True, anchor=tkinter.CENTER)
+        self.mapBt = tkinter.Button(self.map_frame, text="Generate Map",
+                                    height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                    command=self.return_home)
+        self.mapBt.grid(column=0, row=0, padx=self.PADDING, pady=self.PADDING)
 
     def import_data(self):
         """Import data into the model"""
@@ -53,9 +66,8 @@ class AnalysisFrame(AbstractOCMFrame):
 
     def refresh(self):
         """Refresh the contents displayed on this page"""
-        table = Table(self.canvas_frame, dataframe=self.data.data,
-                      showtoolbar=True, showstatusbar=True)
-        table.show()
+        self.table.model.df = self.data.data
+        self.table.redraw()
 
     def return_home(self):
         """Return to the home page"""

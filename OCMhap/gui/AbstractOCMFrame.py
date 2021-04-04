@@ -11,23 +11,23 @@ class AbstractOCMFrame(tkinter.Frame):
     BUTTON_WIDTH = 18
     BUTTON_HEIGHT = 3
 
-    def __init__(self, root):
-        """
-        Initialize an AbstractOCMFrame with a default height and width,
-        as well as a title and an icon photo
+    PADDING = 3
 
-        :param root: the root tk interpreter
+    def __init__(self, master):
         """
-        super().__init__(root)
+        Initialize an AbstractOCMFrame.
+
+        :param master: the master of this frame
+        """
+        super().__init__(master)
 
     def display(self):
         """Display this frame"""
-        # self.pack(expand=True, anchor=tk.CENTER)
-        self.pack()
+        self.grid()
 
     def hide(self):
         """Hide this frame"""
-        self.pack_forget()
+        self.grid_remove()
 
     def dialog_box(self, message):
         """Display the provided message in a dialog box"""
