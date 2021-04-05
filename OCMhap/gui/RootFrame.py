@@ -16,6 +16,3 @@ class RootFrame(tkinter.Tk):
         self.iconphoto(True, tkinter.PhotoImage(
             file=pkg_resources.resource_filename(__name__, "../resources/images/ocm_icon.png")
         ))
-
-    def add_frame(self, frame):
-        pass

@@ -9,9 +9,9 @@ class AnalysisController(object):
     def __init__(self, root, controller, data):
         """
         Initialize the AnalysisController.
-        :param root:
-        :param controller:
-        :param data:
+        :param root: the root frame.
+        :param controller: the main controller responsible for this controller.
+        :param data: the data object.
         """
         self.controller = controller
         self.data = data
