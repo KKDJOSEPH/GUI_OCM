@@ -1,5 +1,3 @@
-from tkinter import filedialog
-
 from OCMhap.gui.AnalysisFrame import AnalysisFrame
 
 
@@ -27,12 +25,12 @@ class AnalysisController(object):
         """Hide the main frame"""
         self.frame.hide()
 
-    def import_data(self, data):
+    def import_data(self, data, file):
         """
         Import data into the provided data object.
         :param data: the data object to import data into
+        :param file: the file to import data from
         """
-        file = filedialog.askopenfile(filetypes=[('csv', '*.csv'), ('tsv', '*.tsv')])
         if file is None:
             return
         data.import_from_file(file)

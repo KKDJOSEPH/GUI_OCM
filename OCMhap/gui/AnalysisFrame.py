@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import filedialog
 from pandastable import Table
 
 from OCMhap.gui.AbstractOCMFrame import AbstractOCMFrame
@@ -62,7 +63,8 @@ class AnalysisFrame(AbstractOCMFrame):
 
     def import_data(self):
         """Import data into the model"""
-        self.controller.import_data(self.data)
+        file = filedialog.askopenfile(filetypes=[('csv', '*.csv'), ('tsv', '*.tsv')])
+        self.controller.import_data(self.data, file)
 
     def refresh(self):
         """Refresh the contents displayed on this page"""
