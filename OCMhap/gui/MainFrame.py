@@ -32,20 +32,20 @@ class MainFrame(AbstractOCMFrame):
         self.imgLabel = tkinter.Label(self, image=self.photo)
         self.imgLabel.grid(column=0, row=0, columnspan=7, rowspan=3)
 
-        self.analysisBt = tkinter.Button(self, text="Analysis",
-                                         height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
-                                         command=self.analysis)
-        self.analysisBt.grid(column=3, row=3, padx=self.PADDING, pady=self.PADDING)
+        self.analysis_button = tkinter.Button(self, text="Analysis",
+                                              height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                              command=self.analysis)
+        self.analysis_button.grid(column=3, row=3, padx=self.PADDING, pady=self.PADDING)
 
-        self.aboutBt = tkinter.Button(self, text="OCM Website",
-                                      height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
-                                      command=self.about)
-        self.aboutBt.grid(column=3, row=4, padx=self.PADDING, pady=self.PADDING)
+        self.about_button = tkinter.Button(self, text="OCM Website",
+                                           height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
+                                           command=self.about)
+        self.about_button.grid(column=3, row=4, padx=self.PADDING, pady=self.PADDING)
 
-        self.helpBt = tkinter.Button(self, text="Help",
-                                     height=round(self.BUTTON_HEIGHT/3)+1, width=round(self.BUTTON_WIDTH/3),
-                                     command=self.help)
-        self.helpBt.grid(column=3, row=5, padx=self.PADDING, pady=self.PADDING)
+        self.help_button = tkinter.Button(self, text="Help",
+                                          height=round(self.BUTTON_HEIGHT/3)+1, width=round(self.BUTTON_WIDTH/3),
+                                          command=self.help)
+        self.help_button.grid(column=3, row=5, padx=self.PADDING, pady=self.PADDING)
 
     def help(self):
         """Provide the help dialog"""

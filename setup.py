@@ -12,7 +12,11 @@ version = "0.1.0"
 # "Development Status :: 5 - Production/Stable"
 release_status = "Development Status :: 3 - Alpha"
 dependencies = [
+    "branca",
+    "folium",
+    "geopandas",
     "tkinter",
+    "numpy",
     "pandas",
     "pandastable"
 ]
@@ -21,7 +25,7 @@ extras = {
 }
 python_version = ">=3.6"
 urls = {
-
+    "US County Data": "https://simplemaps.com/data/us-counties"
 }
 
 
@@ -59,5 +63,17 @@ setuptools.setup(
     },
     project_urls=urls,
     include_package_data=True,
-    package_data={'': ['resources/data/data.csv', 'resources/images/*']},
+    package_data={
+        "test_data": ["resources/data/data.csv"],
+        "ocm_icons": ["resources/images/ocm_icon.png", "resources/images/ocm_logo.png"],
+        "state_data": [
+            "resources/tl_2020_us_state.cpg",
+            "resources/tl_2020_us_state.dbf",
+            "resources/tl_2020_us_state.prj",
+            "resources/tl_2020_us_state.shp",
+            "resources/tl_2020_us_state.shp.ea.iso.xml",
+            "resources/tl_2020_us_state.shp.iso.xml",
+            "resources/tl_2020_us_state.shx"
+        ]
+    },
 )

@@ -7,7 +7,6 @@ class DataObject(object):
     """
     def __init__(self):
         """Initialize a DataObject"""
-        self.attributes = list()
         self.data = pandas.DataFrame()
 
     def import_from_file(self, file):
@@ -16,7 +15,10 @@ class DataObject(object):
         :param file: a readable file handle
         """
         self.data = pandas.read_csv(file)
-        self.attributes = self.data.columns
+
+    @property
+    def attributes(self):
+        return list(self.data.columns)
 
     def copy(self):
         """
@@ -26,6 +28,5 @@ class DataObject(object):
         new_obj = DataObject()
 
         new_obj.data = self.data.copy()
-        new_obj.attributes = self.attributes.copy()
 
         return new_obj

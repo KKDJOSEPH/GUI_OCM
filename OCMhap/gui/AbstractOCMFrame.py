@@ -1,4 +1,3 @@
-import tkinter.messagebox
 import tkinter
 
 

@@ -51,8 +51,9 @@ class MainController(object):
         """
         Provide help information regarding the application
         """
-        self.frame.dialog_box('For app related questions or problems please email Haoyang Ding at \n'
-                              'ding.haoya@northeastern.edu')
+        self.frame.dialog_box("For app related questions or problems please "
+                              "email Haoyang Ding at "
+                              "ding.haoya@northeastern.edu")
 
     def return_home(self):
         """
