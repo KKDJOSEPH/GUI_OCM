@@ -58,7 +58,7 @@ class AnalysisFrame(AbstractOCMFrame):
 
         self.map_button = tkinter.Button(self.map_frame, text="Generate Map",
                                          height=self.BUTTON_HEIGHT, width=self.BUTTON_WIDTH,
-                                         command=self.controller.map)
+                                         command=self.controller.generate_map)
         self.map_button.grid(column=0, row=0, padx=self.PADDING, pady=self.PADDING)
 
         self.map_combo_box_frame = tkinter.Frame(self.map_frame, padx=5, pady=5)
@@ -84,7 +84,14 @@ class AnalysisFrame(AbstractOCMFrame):
         self.controller.import_data(self.data, file)
 
     def refresh_combo_box(self):
-        self.map_combo_box["values"] = self.data.attributes
+        values = self.data.attributes
+        if "FIPS_State_Code" in values:
+            values.remove("FIPS_State_Code")
+        if "FIPS_County_Code" in values:
+            values.remove("FIPS_County_Code")
+        if "Year" in values:
+            values.remove("Year")
+        self.map_combo_box["values"] = values
 
     def refresh(self):
         """Refresh the contents displayed on this page"""

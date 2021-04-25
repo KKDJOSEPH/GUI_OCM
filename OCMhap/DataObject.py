@@ -14,7 +14,7 @@ class DataObject(object):
         Import tabular data from a file
         :param file: a readable file handle
         """
-        self.data = pandas.read_csv(file)
+        self.data = pandas.read_csv(file, dtype=str)
 
     @property
     def attributes(self):

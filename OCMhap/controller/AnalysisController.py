@@ -1,5 +1,5 @@
 from OCMhap.gui.AnalysisFrame import AnalysisFrame
-from OCMhap.gui.Map import AnimatedMapController
+from OCMhap.controller.AnimatedMapController import AnimatedMapController
 
 
 class AnalysisController(object):
@@ -52,12 +52,13 @@ class AnalysisController(object):
         """
         self.frame.dialog_box(text)
 
-    def map(self):
+    def generate_map(self):
         """
         Generate an animated map using the current data and the selected
         column.
         """
         self.map_controller.column_name = self.frame.map_combo_box.get()
+        self.map_controller.generate_map()
 
     def map_help(self):
         """
@@ -65,4 +66,4 @@ class AnalysisController(object):
         """
         self.frame.dialog_box("Generate an Animated Map using the selected column. "
                               "The data must have the following columns: "
-                              "FIPS_County_Code, Year.")
+                              "FIPS_State_Code, FIPS_County_Code, Year.")
