@@ -16,8 +16,6 @@ class AnimatedMapController(object):
     of an animated map.
     """
 
-    state_geo_data = geopandas.read_file(
-        pkg_resources.resource_filename(__name__, "../resources/data/tl_2020_us_state.shp"))
     county_geo_data = geopandas.read_file(
         pkg_resources.resource_filename(__name__, "../resources/data/cb_2018_us_county_500k.shp"))
     county_data = pandas.read_csv(
